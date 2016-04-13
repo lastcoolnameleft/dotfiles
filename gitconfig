@@ -1,0 +1,85 @@
+#~/.gitconfig
+#~/Git/project/.gitconfig
+[core]
+  pager = less -r
+  editor = vim
+  excludesfile = ~/.gitignore
+  whitespace = cr-at-eol
+[color]
+  ui = true
+[user]
+  name = Tommy Falgout
+[alias]
+  show-tags = log --tags --simplify-by-decoration --pretty='format:%ai %d'
+
+  st = status -sb
+  g = log --oneline --topo-order --graph --decorate
+  gall = log --all --oneline --topo-order --graph --decorate
+  amend = commit --amend
+  ci = commit
+  br = branch
+  co = checkout
+  df = diff
+  lg = log -p
+  lol = log --graph --decorate --pretty=oneline --abbrev-commit
+  lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+  ls = ls-files
+  stat = status
+  branches =  branch
+  switch = checkout
+  sw = checkout
+  hide = update-index --assume-unchanged
+  unhide = update-index --no-assume-unchanged
+
+  # Usage: git alias
+  # show local aliases
+  alias = "!f() { cat ~/.gitconfig | grep -A1 '[U]sage:' | sed 's/^.*[U]sage:/>>>/g' | sed 's/^--//g' ; }; f"
+
+  # useful options for investigating commits from multiple branches
+  # Usage: git history remotes/v_1.2.3 remotes/v_1.2.4 ... see commit log interspersed for both
+  history = show-branch --more=3 --date-order
+
+  # Usage: git files ff1234 => [M] Foo.txt, [A] Bar.txt
+  # list files affected by a sha-1
+  files = "!f() { git diff --name-status $1^ $1; }; f"
+
+  # Usage: git junk foo.txt => foo.txt is reset to before editing state
+  # throw away file contents from working directory and revert to history
+  junk = checkout --
+
+  # Usage: git unstage foo.txt
+  # remove file foo.txt from the pending commit (ie: if it was erroneously added)
+  unstage = reset HEAD
+
+	# Usage: git oneline
+  # show oneline commits in last two weeks, but also include author information
+  #oneline = "!f() { if [ \"$1\" != \"\" ] ; then SINCE=\"$1\" ; else SINCE=\"--since='2 weeks ago'\"; fi; git log $SINCE --pretty=format:'%Cgreen%h%Creset %Cred%an%Creset %s'  --color; }; f"
+  oneline = "!f() { git log --since='2 weeks ago' --pretty=format:'%Cgreen%h%Creset %Cred%an%Creset %s'  --color; echo; }; f"
+
+  # Usage: git graf
+  # [G]it.[R]ecently.[A]dded.[F]iles (graf)
+  graf = "!f() { git diff --name-status `git log --since='2 weeks ago' --pretty=format:'%H' | tail -1 ` HEAD | grep ^A ; }; f"
+
+  # Usage: git retire
+  # Tags branch in archive/<branch> and deletes
+  retire = "!f() { git tag archive/$1 $1; git branch -D $1; git tag;}; f"
+
+  # Usage git lg
+  # Log-ish stuff
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+
+  # Matt's log
+  lol = log --graph --decorate --pretty=oneline --abbrev-commit
+
+  # Usage: rebase-upstream
+  # Rebase from upstream master
+  rebase-upstream = "!f() { git checkout master && git fetch --all && git rebase upstream-master && git push origin master;}; f"
+[merge]
+  conflictstyle = diff3
+  renormalize = true
+
+[credential]
+  helper = osxkeychain
+
+[push]
+  default = simple
