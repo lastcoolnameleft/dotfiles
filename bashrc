@@ -46,9 +46,27 @@ function duckTop() {
 }
 
 # http://vim.spf13.com/#install
-alias vi='mvim -v'
+#alias vi='mvim -v'
 
-export GITAWAREPROMPT=~/.bash/git-aware-prompt
-source "${GITAWAREPROMPT}/main.sh"
+#export GITAWAREPROMPT=~/.bash/git-aware-prompt
+#source "${GITAWAREPROMPT}/main.sh"
 
 export PYTHONPATH="$PYTHONPATH:."
+
+# Quick Copies
+alias ssh-copy-key='cat ~/.ssh/id_rsa.pub | pbcopy'
+
+# K8S
+[ -f ~/.kubectl_aliases ] && source ~/.kubectl_aliases
+
+# Add Visual Studio Code (code)
+export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+
+# Trials
+# https://github.com/junegunn/fzf#using-homebrew-or-linuxbrew
+# To install useful key bindings and fuzzy completion:
+#$(brew --prefix)/opt/fzf/install
+#[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+
+source ~/completions/istioctl.bash

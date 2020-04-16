@@ -1,14 +1,15 @@
 #~/.gitconfig
 #~/Git/project/.gitconfig
 [core]
-  pager = less -r
+	pager = 
   editor = vim
-  excludesfile = ~/.gitignore
+	excludesFile = /Users/thfalgou/.gitignore
   whitespace = cr-at-eol
 [color]
   ui = true
 [user]
-  name = Tommy Falgout
+	name = Tommy Falgout
+	email = tommy@lastcoolnameleft.com
 [alias]
   show-tags = log --tags --simplify-by-decoration --pretty='format:%ai %d'
 
@@ -83,3 +84,5 @@
 
 [push]
   default = simple
+[pager]
+	diff = false

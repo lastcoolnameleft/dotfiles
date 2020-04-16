@@ -33,7 +33,7 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 # export UPDATE_ZSH_DAYS=13
 
 # Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS=true
+DISABLE_MAGIC_FUNCTIONS=true
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -154,3 +154,19 @@ alias vi='vim'
 export NVM_DIR="$HOME/.nvm"
 [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
 [ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
+export PATH="/usr/local/opt/mysql-client/bin:$PATH"
+
+# https://github.com/robbyrussell/oh-my-zsh/issues/31#issuecomment-359728582
+unsetopt nomatch
+
+export GOPATH=$HOME/go
+
+# https://porter.sh/install/
+export PATH=$PATH:~/.porter
+#export TERM="xterm-256color"
+
+alias helm='helm3'
+
+# https://github.com/nvbn/thefuck
+eval $(thefuck --alias)
+
