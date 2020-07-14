@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/thfalgou/.oh-my-zsh"
@@ -7,8 +7,8 @@ export ZSH="/Users/thfalgou/.oh-my-zsh"
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="powerlevel9k/powerlevel9k"
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="robbyrussell"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -33,7 +33,7 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 # export UPDATE_ZSH_DAYS=13
 
 # Uncomment the following line if pasting URLs and other text is messed up.
-DISABLE_MAGIC_FUNCTIONS=true
+# DISABLE_MAGIC_FUNCTIONS=true
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -68,6 +68,8 @@ DISABLE_MAGIC_FUNCTIONS=true
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 plugins=(
   git
   docker
@@ -78,9 +80,12 @@ plugins=(
   golang
   helm
   kubectl
+  timer
+  common-aliases
   zsh-syntax-highlighting
   zsh-autosuggestions
 )
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -109,6 +114,9 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# Enable Passcode
+alias eval-ssh='eval "$(ssh-agent -s)"'
+
 # https://itnext.io/boosting-your-kubectl-productivity-b348f7c25712
 source <(kubectl completion zsh)
 
@@ -116,12 +124,8 @@ source <(kubectl completion zsh)
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
 # K8S
-[ -f ~/.kubectl_aliases ] && source ~/.kubectl_aliases
-
-# Listings
-alias ll='ls -la $1'
-alias lltr='ls -latr $1'
-alias llrt='ls -latr $1'
+[ -f ~/git/ahmetb/kubectl-aliases/.kubectl_aliases ] && source ~/git/ahmetb/kubectl-aliases/.kubectl_aliases
+alias krmpocomp='kubectl delete pod --field-selector=status.phase==Succeeded'
 
 # Space.  Always needing more
 function duck() {
@@ -134,39 +138,20 @@ function duckTop() {
 # Quick Copies
 alias ssh-copy-key='cat ~/.ssh/id_rsa.pub | pbcopy'
 
-# https://github.com/kubernetes-sigs/krew
-export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-
-# https://github.com/bhilburn/powerlevel9k/wiki/Install-Instructions#macos-with-homebrew
-# https://github.com/powerline/fonts/issues/185
-# https://github.com/bhilburn/powerlevel9k
-POWERLEVEL9K_MODE='nerdfont-complete'
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
-DEFAULT_USER=thfalgou
-POWERLEVEL9K_STATUS_OK=false
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context ssh root_indicator dir dir_writable vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(command_execution_time status)
-
 # vi
 alias vi='vim'
 
-# NVM
-export NVM_DIR="$HOME/.nvm"
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
-export PATH="/usr/local/opt/mysql-client/bin:$PATH"
+# https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/timer
+TIMER_FORMAT='[%d]'
+export PATH="/usr/local/opt/libpq/bin:$PATH"
+export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+
+# Listings
+alias ll='ls -la $1'
+alias lltr='ls -latr $1'
+alias llrt='ls -latr $1'
 
 # https://github.com/robbyrussell/oh-my-zsh/issues/31#issuecomment-359728582
-unsetopt nomatch
+# unsetopt nomatch
 
 export GOPATH=$HOME/go
-
-# https://porter.sh/install/
-export PATH=$PATH:~/.porter
-#export TERM="xterm-256color"
-
-alias helm='helm3'
-
-# https://github.com/nvbn/thefuck
-eval $(thefuck --alias)
-
