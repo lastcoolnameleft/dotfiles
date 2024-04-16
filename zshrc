@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/thfalgou/.oh-my-zsh"
@@ -68,24 +68,23 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+#source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 plugins=(
   git
   docker
   common-aliases
   git
   github
-  osx
+  macos
   golang
   helm
   kubectl
   timer
   common-aliases
-  zsh-syntax-highlighting
-  zsh-autosuggestions
+#  zsh-syntax-highlighting
+#  zsh-autosuggestions
 )
-
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -124,8 +123,8 @@ source <(kubectl completion zsh)
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
 # K8S
-[ -f ~/git/ahmetb/kubectl-aliases/.kubectl_aliases ] && source ~/git/ahmetb/kubectl-aliases/.kubectl_aliases
-alias krmpocomp='kubectl delete pod --field-selector=status.phase==Succeeded'
+[ -f ~/.kubectl_aliases ] && source ~/.kubectl_aliases
+function kubectl() { echo "+ kubectl $@">&2; command kubectl $@; }
 
 # Space.  Always needing more
 function duck() {
@@ -154,4 +153,20 @@ alias llrt='ls -latr $1'
 # https://github.com/robbyrussell/oh-my-zsh/issues/31#issuecomment-359728582
 # unsetopt nomatch
 
+export PATH="/usr/local/opt/mysql-client/bin:$PATH"
+
+# https://medium.com/@jimkang/install-go-on-mac-with-homebrew-5fa421fc55f5
 export GOPATH=$HOME/go
+export GOROOT="/usr/local/opt/go/libexec"
+export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
+
+# Aliases 
+alias draw.io='/Applications/draw.io.app/Contents/MacOS/draw.io'
+
+alias kcurl="kubectl run curl --image=appropriate/curl -i -t --restart= --rm --command -- sh"
+alias kubuntu="kubectl run ubuntu --image=ubuntu -i -t --restart= --rm --command -- bash"
+
+# https://github.com/wfxr/forgit
+# . /Users/thfalgou/git/tmp/forgit/forgit.plugin.zsh
+
+export PATH="/Users/thfalgou/.local/bin:$PATH"
